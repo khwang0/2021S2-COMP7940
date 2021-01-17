@@ -2,7 +2,7 @@
 
 # COM7940 Cloud Computing 
 
-## 2020/21 S2 Lab 1
+## 2020/21 S2 Lab 6 Git action
 
 
 | | | |
@@ -15,6 +15,5 @@
 **Objective:**
 ---
 Throughout this lab you will be able to:
-
 
 ---

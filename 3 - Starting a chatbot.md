@@ -23,3 +23,10 @@ Throughout this lab you will be able to:
 <!-- adding guideline for creating and customizing chatbot. 
 create something from : https://core.telegram.org/bots
 -->
+## 1. Installation
+
+Install the following software on your machine:
+
+* Telegram  (In case you can not use the google server f)
+
+## 2. Register an account on Telegram
