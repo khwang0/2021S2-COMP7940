@@ -63,7 +63,7 @@ Now the chat bot can receive your massage but can not response. You can send mas
 
 and change  '{$token}' to the Token of your bot.
 
-## Preparing the development environment
+### Preparing the development environment
 
 Now we can try to customize our own bot to make some simple response. You need to install the following  module using
 
@@ -85,15 +85,47 @@ For security, we will using a config file to store the Token and the webhook lin
 ```
 torch config.ini
 ```
-Then we edit the config.ini as the following
+
 ```
 [TELEGRAM]
 ACCESS_TOKEN = {$YOUR TOKEN}
-WEBHOOK_URL = {$YOUR WEBHOOK}
 ```
+When you want to use this config file. You can use the following code in python.
+
+```python
+import configparser
+config = configparser.ConfigParser()
+config.read('config.ini')
+```
+
+
+
+### Simple echo chatbot
+
 First we learn to receive massage from the telegram and echo to the massage, we will use the following API, 
 
 > [telegram.ext.Updater]( https://python-telegram-bot.readthedocs.io/en/latest/telegram.ext.updater.html#telegram.ext.updater.Updater) : Its purpose is to receive the updates from Telegram and to deliver them to said dispatcher 
+>
+> [logging](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Exception-Handling): It helps you know when and why things don't work as expected
+>
+> [telegram.ext.MessageHandler]()
+>
+> 
+>
+> 
+
+Then we start to introduce how to produce a simple echo bot. 
+First we need to create a `Updater` object and replace  `Token` with the token you get earlier.
+
+```python
+from telegram.ext import Updater
+updater = Updater(token  = Token)
+updater.start_polling() #This command help you start the bot
+```
+
+
+
+You can the following sourse code to start a echo chatbot:
 
 ```python
 import telegram
@@ -122,6 +154,10 @@ if __name__ == '__main__':
     main()
 ```
 
+
+if you are writing a script, you probably want to stop the Bot by pressing Ctrl+C or sending a signal to the Bot process. To do that, use `updater.idle()`.
+
+You can customize your chatbot using the [document](https://github.com/python-telegram-bot/python-telegram-bot)
 
 
 
