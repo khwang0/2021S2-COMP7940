@@ -19,7 +19,7 @@ Throughout this lab you will be able to:
 2. Practice some basic git functions/commands like `clone`, `pull`, `commit`, `push`.
 
 ---
-
+## Git
 ## 1. Installation
 
 Install the following software into your machine:
@@ -162,6 +162,35 @@ To get familiar with these commands, try to repeat the above steps (Step 4 to 6)
 
 ## Python Exercise
 
-<!--let's prepare some exercise using Python Flask (but not using render_template), practicing simple function, loop, string and number operators-->
+Try to finish the following tasks by adding one or two lines in the program.
+
+### Ex 1
+```py
+# Find the all factors of x using a loop and the operator % 
+# % means find remainder, for example 10 % 2 = 0; 10% 3 = 1
+x = 52633
+for i in range(x+1):
+  # your code here
+```
+
+### Ex 2
+```py
+# Write a function that prints all factors of the given parameter x
+def print_factor(x):
+  # your code here
+```
+
+### Ex 3
+```py
+# Write a program that be able to find all factors of the numbers in the list l
+l = [52633, 8137, 1024, 999]
+
+# your code here
+```
+
+
+---
+
+# No submission for this lab.
 
 

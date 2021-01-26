@@ -31,7 +31,7 @@ Perform the following sequentially. If you forget the commands to perform these 
 | Donald | | Joe |
 |---|---|---|
 | create a file A.txt | | |
-| stage A.txt & commit | |
+| stage A.txt & commit | | 
 | push to main | |
 | | | create a file B.txt |
 | | | stage B.txt & commit |
@@ -44,8 +44,8 @@ Because these two conflicting commit fortunately touch on different files, so it
 | Donald | | Joe |
 |---|---|---|
 |  | | Type `git pull origin main` |
-|  |  | Type `git log` to check what has happened |
-| Type `git log` and compare it with Joe |  |
+|  |  | Type `git log` to check what has happened | 
+| Type `git log` and compare it with Joe |  | 
 |  |  | push to main |
 | pull | | |
 | Type `git log` and compare it with Joe again | |
@@ -56,7 +56,7 @@ Perform the following:
 | Donald | | Joe |
 |---|---|---|
 | Write "Donald" to B.txt | | |
-| commit | |
+| commit | | 
 | push to main | |
 | | | Write "Joe" to B.txt |
 | | | commit |
@@ -67,7 +67,8 @@ This should result in a conflict again.
 | Donald | | Joe |
 |---|---|---|
 |  | | Type `git pull origin main` |
-|  |  | Type `git log` to check what has happened |
+|  |  | Type `git log` to check what has happened | 
+
 
 This time you will see something like:
 ```
@@ -84,10 +85,11 @@ In git log you cannot see the merged result. This is because git does not know w
 | Donald | | Joe |
 |---|---|---|
 |  | | Open B.txt and try to remove the symbols <<< ==== >>> and fix the file |
-|  |  | Commit |
+|  |  | Commit | 
 |  |  | push to main again |
-| pull | |
-| Type `git log` |
+| pull | | 
+| Type `git log` |  
+
 
 # 3 Conflict that cannot be resolved manually
 
@@ -107,7 +109,7 @@ This will result in a conflict. After `git pull` at Joe, you can confirm that a 
 
 | Donald | | Joe |
 |---|---|---|
-| | | Type `git reset --hard HEAD~1` |
+| | | Type `git reset --hard HEAD~1` | 
 | | | pull again to check if it is in Donald version |
 
 This method will give up on the change you have made. The a.jpg you have created will be gone forever. Be careful when you issue this command. This should have resolved the conflict. 
@@ -116,12 +118,13 @@ Now try to recreate the conflict and try force push
 | Donald | | Joe |
 |---|---|---|
 | Add a JPG file a.jpg | | |
-| stage a.jpg and commit |
+| stage a.jpg and commit | 
 | push |
-| | | Add *another* JPG file but still name it a.jpg |
-| | | stage a.jpg and commit |
+| | | Add *another* JPG file but still name it a.jpg | 
+| | | stage a.jpg and commit | 
 | | | Type `git push origin main -f` |
-| pull and see what happen | |
+| pull and see what happen | | 
+
 
 Joe has fixed his problem but leaving Donald in big trouble. That's why force push is strongly discouraged!
 
@@ -194,6 +197,7 @@ sum = 12; i =2
 sum = 15; i =3
 Total = 15
 ```
+
 
 ---
 
