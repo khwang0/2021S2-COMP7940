@@ -69,6 +69,7 @@ This should result in a conflict again.
 |  | | Type `git pull origin main` |
 |  |  | Type `git log` to check what has happened | 
 
+
 This time you will see something like:
 ```
 From https://github.com/khwang0/comp
@@ -89,6 +90,7 @@ In git log you cannot see the merged result. This is because git does not know w
 | pull | | 
 | Type `git log` |  
 
+
 # 3 Conflict that cannot be resolved manually
 
 Perform the following
@@ -96,10 +98,10 @@ Perform the following
 | Donald | | Joe |
 |---|---|---|
 | Add a JPG file a.jpg | | |
-| stage a.jpg and commit | 
+| stage a.jpg and commit |
 | push |
-| | | Add *another* JPG file but still name it a.jpg | 
-| | | stage a.jpg and commit | 
+| | | Add *another* JPG file but still name it a.jpg |
+| | | stage a.jpg and commit |
 | | | push |
 | | | pull and attempt to resolve the conflict |
 
@@ -122,6 +124,7 @@ Now try to recreate the conflict and try force push
 | | | stage a.jpg and commit | 
 | | | Type `git push origin main -f` |
 | pull and see what happen | | 
+
 
 Joe has fixed his problem but leaving Donald in big trouble. That's why force push is strongly discouraged!
 
