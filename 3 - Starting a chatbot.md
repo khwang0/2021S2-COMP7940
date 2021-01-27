@@ -31,12 +31,12 @@ Install the following software on your phone:
 * Telegram  
 
 ## 2.  Start a chatbot
-Telegram provide an official Bots accounts that do not require additional phone number to set up. You can add @BotFather and just talk to the @BotFather follow some simple step to create  your own chatbot.
+Telegram provides an official Bots accounts that do not require additional phone number to set up. You can add @BotFather and just talk to the @BotFather follow some simple step to create  your own chatbot.
 
 you can find more about the Telegram bot API at: https://core.telegram.org/api
 
 ###  start the chatbot and name it
-Send the following massage to BotFather to create a new bot.
+Send the following message to BotFather to create a new bot.
 ```cmd
 /newbot
 ```
@@ -59,46 +59,50 @@ For example,
 - Token of my bot : 1505550933:AAFlZtYKApLkUR2DNRrS95gvrCxQxeoz9Bo
 
 
-Now the chat bot can receive your massage but can not response. You can send massage to the chatbot and the logs can see the  at the following website:
+Now the chatbot can receive your message but can not response. You can send message to the chatbot and the logs can see the  at the following website:
 
-[https://api.telegram.org/bot{$token}/getUpdates](https://api.telegram.org/bot606248605:AAGv_TOJdNNMc_v3toHK_X6M-dev_1tG-JA/getUpdates) 
+https://api.telegram.org/bot**YOUR_TOKEN_HERE**/getUpdates
 
-and change  '{$token}' to the Token of your bot.
+and replace the text **YOUR_TOKEN_HERE** with your token.
 
 ### Preparing the development environment
 
-Now we can try to customize our own bot to make some simple response. You need to install the following  module using
+Now we can try to customize our own bot to make some simple response. You need to install the following a few modules.
 
-> `python-telegram-bot`: Telegram Bot API wrapper.
 
+Clone an empty repository from Github, or reuse the repository created in previous labs. 
+Add a new file `requirements.txt` into your local folder with the following content:
+```txt
+telegram
+configparser
+redis
 ```
-mkdir $project_name(choose your own project name)
-cd $project_name
-pip install python-telegram-bot 
-#install the required module, if the pip install fails, you may update the pip version #firtst using: python -m pip install --upgrade pip
+
+Type the following in the terminal/command prompt:
+
+```sh
+$ python -m pip install --upgrade pip
+$ pip install -r requirements.txt
 ```
-For security, we will using a config file to store the Token and the webhook link, first we make a config file
-```
-torch config.ini
-```
+For security, we will using a config file to store the Token and the webhook link, first we make a config file `config.ini`. 
+
 
 ```
 [TELEGRAM]
-ACCESS_TOKEN = {$YOUR TOKEN}
+ACCESS_TOKEN = YOUR_TOKEN_HERE
 ```
-When you want to use this config file. You can use the following code in python.
+<!-- When you want to use this config file. You can use the following code in python.
 
 ```python
 import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
-```
+``` -->
 
-###  Handle 
 
-### Simple echo chatbot
+## Simple echo chatbot
 
-First we learn to receive massage from the telegram and echo to the massage, we will use the following API, 
+First we learn how to receive message from Telegram and echo to the message, we will use the following API, 
 
 
 
@@ -108,7 +112,7 @@ First we learn to receive massage from the telegram and echo to the massage, we 
 
 >[telegram.ext.Handler](http://python-telegram-bot.readthedocs.io/en/latest/telegram.ext.messagehandler.html): It contains subclass of handlers for different kind of updates (e.g. text,audio and so on)
 > 
->[telegram.ext.Fliters](https://python-telegram-bot.readthedocs.io/en/stable/telegram.ext.filters.html): It contain a number of filter to process the massages such as text, images and more.
+>[telegram.ext.Fliters](https://python-telegram-bot.readthedocs.io/en/stable/telegram.ext.filters.html): It contain a number of filter to process the messages such as text, images and more.
 
 You can find the detailed document of different API [here](https://python-telegram-bot.readthedocs.io/en/latest/telegram.html).
 
@@ -116,18 +120,19 @@ You can find the detailed document of different API [here](https://python-telegr
 
 Then we start to introduce how to produce a simple echo bot. 
 
-You can add a python file `chatbot.py` with the following source code to start a echo chatbot:
+You can add a python file `chatbot.py` with the following source code to start a echo chatbot. Make sure you place the file together with `config.ini`
 
 ```python
+## chatbot.py
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters
-# The MassageHandler is used for all massage updates
+# The messageHandler is used for all message updates
 import configparser
 import logging
 
 
 def main():
-    # Load your token and creat an Updater for your Bot
+    # Load your token and create an Updater for your Bot
     config = configparser.ConfigParser()
     config.read('config.ini')
     updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
@@ -136,7 +141,7 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
     
-    # register a dispatcher to handle massage: here we register an echo dispatcher
+    # register a dispatcher to handle message: here we register an echo dispatcher
     echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
     dispatcher.add_handler(echo_handler)
 
@@ -146,7 +151,10 @@ def main():
 
 
 def echo(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+    reply_message = update.message.text.upper()
+    logging.info("Update: " + str(update))
+    logging.info("context: " + str(context))
+    context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
 
 if __name__ == '__main__':
     main()
@@ -157,18 +165,32 @@ run the following command on the terminal to start the chatbot.
 ```
 python chatbot.py
 ```
+or
 
-Then you can send the massage to your bot in Telegram, and it can echo your messages.
+```
+py chatbot.py
+```
 
-if you are writing a script, you probably want to stop the Bot by pressing `Ctrl+c`.
+or simply pressing the launch button ▶️  from your IDE.
 
+
+Then you can send the message to your bot in Telegram, and it can echo your messages.
+
+You can also look at the log from your screen when you chat with your chatbot. After you have finished playing with your chatbot, press **Ctrl + C** to stop the program.
 
 
 For more document about the telegram chatbot You can customize your chatbot using the [document](https://github.com/python-telegram-bot/python-telegram-bot), and see more [examples](https://github.com/python-telegram-bot/python-telegram-bot/tree/master/examples).
 
 
+## Push code
+
+This is the end of Lab3. Please push your code to Github.
+
 
 
 Reference:
 
-1 python-telegram-bot official GitHub page: https://github.com/python-telegram-bot/python-telegram-bot
+1. python-telegram-bot official GitHub page: https://github.com/python-telegram-bot/python-telegram-bot
+
+
+No write up for today's lab.
