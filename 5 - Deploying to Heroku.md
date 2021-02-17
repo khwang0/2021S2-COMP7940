@@ -101,10 +101,10 @@ def main():
     dispatcher = updater.dispatcher
 
     global redis1
-    redis1 = redis.Redis(host=(os.environ['HOST']), password=(os.environ['PWD']), port=(os.environ['REDISPORT']))
+    redis1 = redis.Redis(host=(os.environ['HOST']), password=(os.environ['PASSWORD']), port=(os.environ['REDISPORT']))
 # ...
 ```
 
-In such case the system configuration is read from Heroku's environment variable directly. Follow the instruction here: https://devcenter.heroku.com/articles/config-vars to setup the variable `ACCESS_TOKEN`, `HOST`, `PWD`, and `REDISPORT`.
+In such case the system configuration is read from Heroku's environment variable directly. Follow the instruction here: https://devcenter.heroku.com/articles/config-vars to setup the variable `ACCESS_TOKEN`, `HOST`, `PASSWORD`, and `REDISPORT`.
 
 Of course after changing your code, you need to push it back to heroku.
