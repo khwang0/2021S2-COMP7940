@@ -68,14 +68,14 @@ GitHub Actions uses YAML syntax to define the events, jobs, and steps. These YAM
 
 You can create an example workflow in your repository that automatically triggers a series of commands whenever code is pushed. In this workflow, GitHub Actions checks out the pushed code, installs the software dependencies, and runs `bats -v`.
 
-1. In your repository, create the `.github/workflows/` directory to store your workflow files.
+1. In your repository, create the `mkdir .github/workflows/` directory to store your workflow files.
 
 2. In the
 
     
 
    ```
-   .github/workflows/
+   cd .github/workflows/
    ```
 
     
