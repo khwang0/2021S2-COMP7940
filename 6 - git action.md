@@ -38,7 +38,7 @@ Below is a list of the multiple GitHub Actions components that work together to 
 >
 > #### [Events](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions#events)
 >
-> An event is a specific activity that triggers a workflow. For example, activity can originate from GitHub when someone pushes a commit to a repository or when an issue or pull request is created. You can also use the [repository dispatch webhook](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event) to trigger a workflow when an external event occurs. For a complete list of events that can be used to trigger workflows, see [Events that trigger workflows](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
+> An event is a specific activity that triggers a workflow. For example, activity can originate from GitHub when someone pushes a commit to a repository or when an issue or pull request is created. You can see  list of events that can be used to trigger workflows  [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#about-workflow-events).
 >
 > #### [Jobs](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions#jobs)
 >
@@ -66,74 +66,42 @@ Below is a list of the multiple GitHub Actions components that work together to 
 
 GitHub Actions uses YAML syntax to define the events, jobs, and steps. These YAML files are stored in your code repository, in a directory called `.github/workflows`.
 
-You can create an example workflow in your repository that automatically triggers a series of commands whenever code is pushed. In this workflow, GitHub Actions checks out the pushed code, installs the software dependencies, and runs `bats -v`.
+You can create an example workflow in your repository that automatically triggers a series of commands.
 
 1. In your repository, create the `mkdir .github/workflows/` directory to store your workflow files.
 
-2. In the
-
-    
+2. In the directory, create a new file called `git-actions.yml`
 
    ```
    cd .github/workflows/
+   touch git-actions.yml
    ```
-
-    
-
-   directory, create a new file called
-
-    
-
-   ```
-   learn-git-actions.yml
-   ```
-
-    
 
    and add the following code.
 
    ```yaml
-   name: learn-github-actions
-   on: [push]
-   jobs:
+   name: github-actions  # the name of this work flow
+   on: [push]  
+   # Specify the event that automatically triggers the workflow file. This example uses the push event, so that the jobs run every time someone pushes a change to the repository
+   jobs:  # gather all the jobs that run in the workflow
      check-bats-version:
        runs-on: ubuntu-latest
        steps:
          - uses: actions/checkout@v2
          - uses: actions/setup-node@v1
-         - run: npm install -g bats
-         - run: bats -v
+         - run: echo 'Hello World'
+   
    ```
 
 3. Commit these changes and push them to your GitHub repository.
 
 Your new GitHub Actions workflow file is now installed in your repository and will run automatically each time someone pushes a change to the repository. 
 
-### **Understanding the workflow file**
+
+
+### **Viewing the job's activity**
 
 ---
-
-To help you understand how YAML syntax is used to create a workflow file, this section explains each line of the introduction's example:
-
-| `name: learn-github-actions`        | *Optional* - The name of the workflow as it will appear in the Actions tab of the GitHub repository. |
-| ----------------------------------- | ------------------------------------------------------------ |
-| `on: [push]`                        | Specify the event that automatically triggers the workflow file. This example uses the `push` event, so that the jobs run every time someone pushes a change to the repository. You can set up the workflow to only run on certain branches, paths, or tags. For syntax examples including or excluding branches, paths, or tags, see ["Workflow syntax for GitHub Actions."](https://docs.github.com/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths) |
-| `jobs:`                             | Groups together all the jobs that run in the `learn-github-actions` workflow file. |
-| `check-bats-version:`               | Defines the name of the `check-bats-version` job stored within the `jobs` section. |
-| `  runs-on: ubuntu-latest`          | Configures the job to run on an Ubuntu Linux runner. This means that the job will execute on a fresh virtual machine hosted by GitHub. For syntax examples using other runners, see ["Workflow syntax for GitHub Actions."](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on) |
-| `  steps:`                          | Groups together all the steps that run in the `check-bats-version` job. Each item nested under this section is a separate action or shell command. |
-| `    - uses: actions/checkout@v2`   | The `uses` keyword tells the job to retrieve `v2` of the community action named `actions/checkout@v2`. This is an action that checks out your repository and downloads it to the runner, allowing you to run actions against your code (such as testing tools). You must use the checkout action any time your workflow will run against the repository's code or you are using an action defined in the repository. |
-| `    - uses: actions/setup-node@v1` | This action installs the `node` software package on the runner, giving you access to the `npm` command. |
-| `    - run: npm install -g bats`    | The `run` keyword tells the job to execute a command on the runner. In this case, you are using `npm` to install the `bats` software testing package. |
-| `    - run: bats -v`                | Finally, you'll run the `bats` command with a parameter that outputs the software version. |
-
-#### [Visualizing the workflow file](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions#visualizing-the-workflow-file)
-
-In this diagram, you can see the workflow file you just created and how the GitHub Actions components are organized in a hierarchy. Each step executes a single action or shell command. Steps 1 and 2 use prebuilt community actions. Steps 3 and 4 run shell commands directly on the runner. To find more prebuilt actions for your workflows, see "[Finding and customizing actions](https://docs.github.com/en/actions/learn-github-actions/finding-and-customizing-actions)."
-
-![Workflow overview](https://docs.github.com/assets/images/help/images/overview-actions-event.png)
-
-### [Viewing the job's activity](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions#viewing-the-jobs-activity)
 
 Once your job has started running, you can see a visualization graph of the run's progress and view each step's activity on GitHub.
 
@@ -141,29 +109,43 @@ Once your job has started running, you can see a visualization graph of the run'
 
 2. Under your repository name, click **Actions**.
 
-   ![Navigate to repository](https://docs.github.com/assets/images/help/images/learn-github-actions-repository.png)
-
-   
-
 3. In the left sidebar, click the workflow you want to see.
 
-   ![Screenshot of workflow results](https://docs.github.com/assets/images/help/images/learn-github-actions-workflow.png)
+   ![image-20210224163607007](C:\Users\cszjlei\Desktop\TA\COMP7940 semester 2 20-21\2021S2-COMP7940\action)
 
    
 
 4. Under "Workflow runs", click the name of the run you want to see.
 
-   ![Screenshot of workflow runs](https://docs.github.com/assets/images/help/images/learn-github-actions-run.png)
-
-   
-
 5. Under **Jobs** or in the visualization graph, click the job you want to see.
-
-   ![Select job](https://docs.github.com/assets/images/help/images/overview-actions-result-navigate.png)
-
-   
 
 6. View the results of each step.
 
-   ![Screenshot of workflow run details](https://docs.github.com/assets/images/help/images/overview-actions-result-updated-2.png)
+   ![image-20210224165948358](C:\Users\cszjlei\Desktop\TA\COMP7940 semester 2 20-21\2021S2-COMP7940\results)
+
+
+
+###  Automatically Deploy to Heroku 
+
+---
+You can create a YAML file named `deploy.yml` to set up the automagical Heroku deployment  when you push your project to Github
+```yaml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "YOUR APP's NAME" #Must be unique in Heroku
+          heroku_email: "YOUR EMAIL"
+```
 
