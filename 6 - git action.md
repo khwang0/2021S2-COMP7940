@@ -112,7 +112,7 @@ Once your job has started running, you can see a visualization graph of the run'
 
 3. In the left sidebar, click the workflow you want to see.
 
-   <img src="..\2021S2-COMP7940\action" alt="image-20210224163607007" style="zoom:67%;" />
+   <img src="action" alt="image-20210224163607007" style="zoom:67%;" />
 
    
 
@@ -122,7 +122,7 @@ Once your job has started running, you can see a visualization graph of the run'
 
 6. View the results of each step.
 
-   <img src="..\2021S2-COMP7940\results" alt="image-20210224165948358" style="zoom: 80%;" />
+   <img src="results" alt="image-20210224165948358" style="zoom: 80%;" />
 
 
 
@@ -133,13 +133,13 @@ You can create a YAML file named `deploy.yml` to set up the automagical Heroku d
 
 Your need to search your repo and connect it.
 
-<img src="..\2021S2-COMP7940\deployment_method" alt="image-20210224192605939" style="zoom: 67%;" />
+<img src="deployment_method" alt="image-20210224192605939" style="zoom: 67%;" />
 
 
 
 Now go to your Heroku account and go to `Account Settings`. Scroll to the bottom until you see API Key. Copy this key and go to your project's repository on GitHub. Then in your GitHub Repo, go to `Settings -> Secrets` and click on "New Secret". Then enter `HEROKU_API_KEY` as the name and paste the copied API Key as the value.
 
-![image-20210224202334595](..\2021S2-COMP7940\secrets)
+![image-20210224202334595](secrets)
 
 You can use the following code to achieve automatically deployment
 
