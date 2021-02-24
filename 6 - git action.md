@@ -68,7 +68,7 @@ GitHub Actions uses YAML syntax to define the events, jobs, and steps. These YAM
 
 You can create an example workflow in your repository that automatically triggers a series of commands.
 
-1. In your repository, create the `mkdir .github/workflows/` directory to store your workflow files.
+1. In your repository, create the `mkdir .github`and `mkdir .github/workflows/` directory to store your workflow files.
 
 2. In the directory, create a new file called `git-actions.yml`
 
@@ -80,16 +80,17 @@ You can create an example workflow in your repository that automatically trigger
    and add the following code.
 
    ```yaml
-   name: github-actions  # the name of this work flow
+   name: github-actions  				# the name of this work flow
    on: [push]  
    # Specify the event that automatically triggers the workflow file. This example uses the push event, so that the jobs run every time someone pushes a change to the repository
-   jobs:  # gather all the jobs that run in the workflow
+   
+   jobs:  								# gather all the jobs that run in the workflow
      check-bats-version:
-       runs-on: ubuntu-latest
+       runs-on: ubuntu-latest   		# Set the type of machine to run on
        steps:
-         - uses: actions/checkout@v2
-         - uses: actions/setup-node@v1
-         - run: echo 'Hello World'
+         - uses: actions/checkout@v2   # Checks out a copy of your repository on the ubuntu-latest machine
+         - uses: actions/setup-node@v1  
+         - run: echo 'Hello World'  	# the action
    
    ```
 
@@ -111,7 +112,7 @@ Once your job has started running, you can see a visualization graph of the run'
 
 3. In the left sidebar, click the workflow you want to see.
 
-   ![image-20210224163607007](C:\Users\cszjlei\Desktop\TA\COMP7940 semester 2 20-21\2021S2-COMP7940\action)
+   <img src="..\2021S2-COMP7940\action" alt="image-20210224163607007" style="zoom:67%;" />
 
    
 
@@ -121,14 +122,27 @@ Once your job has started running, you can see a visualization graph of the run'
 
 6. View the results of each step.
 
-   ![image-20210224165948358](C:\Users\cszjlei\Desktop\TA\COMP7940 semester 2 20-21\2021S2-COMP7940\results)
+   <img src="..\2021S2-COMP7940\results" alt="image-20210224165948358" style="zoom: 80%;" />
 
 
 
 ###  Automatically Deploy to Heroku 
 
 ---
-You can create a YAML file named `deploy.yml` to set up the automagical Heroku deployment  when you push your project to Github
+You can create a YAML file named `deploy.yml` to set up the automagical Heroku deployment  when you push your project to GitHub if you choose the GitHub as your deployment method.
+
+Your need to search your repo and connect it.
+
+<img src="..\2021S2-COMP7940\deployment_method" alt="image-20210224192605939" style="zoom: 67%;" />
+
+
+
+Now go to your Heroku account and go to `Account Settings`. Scroll to the bottom until you see API Key. Copy this key and go to your project's repository on GitHub. Then in your GitHub Repo, go to `Settings -> Secrets` and click on "New Secret". Then enter `HEROKU_API_KEY` as the name and paste the copied API Key as the value.
+
+![image-20210224202334595](..\2021S2-COMP7940\secrets)
+
+You can use the following code to achieve automatically deployment
+
 ```yaml
 name: Deploy
 
@@ -142,10 +156,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "YOUR APP's NAME" #Must be unique in Heroku
-          heroku_email: "YOUR EMAIL"
 ```
 
