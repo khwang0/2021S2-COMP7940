@@ -129,35 +129,58 @@ Once your job has started running, you can see a visualization graph of the run'
 ###  Automatically Deploy to Heroku 
 
 ---
-You can create a YAML file named `deploy.yml` to set up the automagical Heroku deployment  when you push your project to GitHub if you choose the GitHub as your deployment method.
+There are two ways to automatically deploy your source code to Heroku based on two deployment method `Heroku Git` and `GitHub`
 
-Your need to search your repo and connect it.
+#### GitHub Deployment
 
-<img src="deployment_method" alt="image-20210224192605939" style="zoom: 67%;" />
+If you use the GitHub as the Deployment method, you  to search your repo and connect it.
+
+<img src="deployment_method" alt="image-20210224192605939" style="zoom: 67%;" />\
+
+Then you can enable automatic deployment directly
+
+<img src="automatic" alt="image-20210225140319046" style="zoom:67%;" />
 
 
 
-Now go to your Heroku account and go to `Account Settings`. Scroll to the bottom until you see API Key. Copy this key and go to your project's repository on GitHub. Then in your GitHub Repo, go to `Settings -> Secrets` and click on "New Secret". Then enter `HEROKU_API_KEY` as the name and paste the copied API Key as the value.
+#### Heroku Git
 
-![image-20210224202334595](secrets)
-
-You can use the following code to achieve automatically deployment
+If you are using the `Heroku Git` , you can using the following `deploy.yml` to push the source code to Heroku, when you `push` the code from your local machine to GitHub.
 
 ```yaml
 name: Deploy
-
 on:
   push:
     branches:
       - master
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "YOUR APP's NAME" #Must be unique in Heroku
+          fetch-depth: 0
+      - name: Deploy
+        env:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_APP_NAME: "zijianchatbot"
+        run: |
+              git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master  
 ```
+
+Now you need to set the `HEROKU_API_KEY` for this Git Action. First, go to your Heroku account and go to `Account Settings`. 
+
+<img src="account_setting" alt="image-20210225141118827" style="zoom:67%;" />
+
+Scroll to the bottom until you see API Key. Copy this key and go to your project's repository on GitHub. 
+
+<img src="API_KEY" alt="image-20210225141228656" style="zoom:67%;" />
+
+Then in your GitHub Repo, go to `Settings -> Secrets` and click on "New Secret". Then enter `HEROKU_API_KEY` as the name and paste the copied API Key as the value.
+
+<img src="secrets" alt="image-20210224202334595" style="zoom:67%;" />
+
+
+
+
 
