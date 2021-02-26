@@ -42,7 +42,7 @@ def main():
     dispatcher = updater.dispatcher
 
     global redis1
-    redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']['PWD']), port=(config['REDIS']['PORT']))
+    redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']['PASSWORD']), port=(config['REDIS']['REDISPORT']))
 
     # You can set this logging module, so you will know when and why things do not work as expected
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -101,8 +101,8 @@ ACCESS_TOKEN = YOUR_TOKEN_HERE
 
 [REDIS]
 HOST = redis-11363.c1.asia-northeast1-1.gce.cloud.redislabs.com
-PWD = 1nOA0St0I7p9pQqu8HkQ18XqDfnoPeoL
-PORT = 11363
+PASSWORD = 1nOA0St0I7p9pQqu8HkQ18XqDfnoPeoL
+REDISPORT = 11363
 ```
 
 You can try running the program again. This program has added two new command `/help` and `/add`.

@@ -18,6 +18,8 @@ Throughout this lab you will be able to:
 1. Practice some basic python syntax and complete some simple programs;
 2. Practice some basic git functions/commands like `clone`, `pull`, `commit`, `push`.
 
+
+
 ---
 ## Git
 ## 1. Installation

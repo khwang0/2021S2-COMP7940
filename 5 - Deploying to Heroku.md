@@ -1,4 +1,4 @@
-![](../imgs/hkbu.png)
+![](../img/hkbu.png)
 
 # COM7940 Cloud Computing 
 
